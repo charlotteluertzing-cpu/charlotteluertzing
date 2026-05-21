@@ -804,20 +804,20 @@ footer a:hover{color:var(--gold);}
 <script>
   // Duplikat entfernt — wird von Seitenweiche oben gesteuert
 
-// Seitenweiche
-(function() {
+// Seitenweiche - wird nach DOM-Laden ausgeführt
+window.addEventListener('load', function() {
   const empParams = new URLSearchParams(window.location.search);
   const seite = empParams.get('seite');
   if (seite === 'empfehlung') {
-    document.getElementById('main-page').classList.add('hidden');
-    document.getElementById('emp-page').classList.add('active');
-    // Name aus URL
+    const mainPage = document.getElementById('main-page');
+    const empPage = document.getElementById('emp-page');
+    if (mainPage) mainPage.classList.add('hidden');
+    if (empPage) empPage.classList.add('active');
     const name = empParams.get('von');
     const nameEl = document.getElementById('empfehler-name');
     if (name && nameEl) {
       nameEl.textContent = decodeURIComponent(name);
     }
-    // WhatsApp Link personalisieren
     if (name) {
       const waLink = document.querySelector('.emp-page .btn-gold');
       if (waLink) {
@@ -826,7 +826,7 @@ footer a:hover{color:var(--gold);}
       }
     }
   }
-})();
+});
 
 // Name aus URL Parameter lesen
   const params = new URLSearchParams(window.location.search);
